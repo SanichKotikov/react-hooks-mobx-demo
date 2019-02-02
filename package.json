@@ -1,0 +1,34 @@
+{
+  "name": "react-hooks-mobx-demo",
+  "version": "0.1.0",
+  "dependencies": {
+    "@types/jest": "23.3.13",
+    "@types/node": "10.12.21",
+    "@types/react": "16.8.1",
+    "@types/react-dom": "16.0.11",
+    "mobx": "5.9.0",
+    "mobx-react-lite": "0.3.6",
+    "react": "16.8.0-alpha.1",
+    "react-dom": "16.8.0-alpha.1",
+    "react-scripts": "2.1.3",
+    "typescript": "3.3.1"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": [
+    "Chrome >= 62",
+    "ChromeAndroid >= 69",
+    "Android >= 5",
+    "Edge >= 17",
+    "Firefox >= 61",
+    "iOS >= 11",
+    "Safari >= 11",
+    "Opera >= 55"
+  ]
+
+}

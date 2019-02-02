@@ -1,0 +1,15 @@
+.root {}
+
+.button {
+  padding: 10px 20px;
+  font: inherit;
+  color: var(--text-color);
+  background: var(--color);
+  border: 0;
+  border-bottom: 1px solid rgba(0, 0, 0, .2);
+  border-radius: 4px;
+}
+
+.button + .button {
+  margin-left: 4px;
+}
