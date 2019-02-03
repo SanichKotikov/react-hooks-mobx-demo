@@ -1,13 +1,14 @@
 import React, { useContext, useEffect } from 'react';
 import { observer, useObservable } from 'mobx-react-lite';
-import StoresContext from '../../stores';
 import ThemeSelector from '../ThemeSelector/ThemeSelector';
+import { StoresContext } from '../../contexts';
 import setTheme from '../../helpers/setTheme';
+import { IStores } from '../../stores/types';
 import THEMES from '../../themes';
 import styles from './App.module.css';
 
 const App: React.FunctionComponent = observer(() => {
-  const stores = useContext(StoresContext);
+  const stores = useContext(StoresContext) as IStores;
   const counter = useObservable({ count: 0 });
 
   useEffect(() => setTheme(THEMES[stores.uiStore.theme]), [stores.uiStore.theme]);
