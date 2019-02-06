@@ -1,21 +1,24 @@
 import React from 'react';
-import { IUiThemes, ThemeName } from '../../types';
+import classNames from 'classnames';
+import { uiThemeName } from '../../types';
 import styles from './ThemeSelector.module.css';
 
+const THEMES = Object.keys(uiThemeName);
+
 interface IProps {
-  themes: IUiThemes;
-  onChange: (theme: ThemeName) => void;
+  className?: string;
+  onChange: (theme: uiThemeName) => void;
 }
 
-const ThemeSelector: React.FunctionComponent<IProps> = ({ themes, onChange }) => (
-  <div className={styles.root}>
-    {(Object.keys(themes) as ThemeName[]).map(theme => (
+const ThemeSelector: React.FunctionComponent<IProps> = ({ className, onChange }) => (
+  <div className={classNames(styles.root, className)}>
+    {THEMES.map((name: any) => (
       <button
-        key={theme}
+        key={name}
         className={styles.button}
-        onClick={() => onChange(theme)}
+        onClick={() => onChange(uiThemeName[name] as uiThemeName)}
       >
-        {theme}
+        {name}
       </button>
     ))}
   </div>

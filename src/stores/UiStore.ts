@@ -1,15 +1,15 @@
 import { observable, action } from 'mobx';
-import { ThemeName } from '../types';
+import { uiThemeName } from '../types';
 
 class UiStore {
 
-  @observable theme: ThemeName;
+  @observable theme: uiThemeName;
 
   constructor() {
-    this.theme = 'light';
+    this.theme = uiThemeName.Light;
   }
 
-  @action switchTheme = (theme: ThemeName) => {
+  @action switchTheme = (theme: uiThemeName) => {
     this.theme = theme;
   };
 

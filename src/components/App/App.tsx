@@ -1,17 +1,17 @@
 import React, { useContext, useEffect } from 'react';
-import { observer, useObservable } from 'mobx-react-lite';
-import ThemeSelector from '../ThemeSelector/ThemeSelector';
+import { observer } from 'mobx-react-lite';
+import ThemeSelector from '../ThemeSelector';
+import PostsList from '../PostsList';
 import { StoresContext } from '../../contexts';
 import setTheme from '../../helpers/setTheme';
 import { IStores } from '../../stores/types';
-import THEMES from '../../themes';
 import styles from './App.module.css';
 
 const App: React.FunctionComponent = observer(() => {
-  const stores = useContext(StoresContext) as IStores;
-  const counter = useObservable({ count: 0 });
+  const { uiStore, postsStore } = useContext(StoresContext) as IStores;
 
-  useEffect(() => setTheme(THEMES[stores.uiStore.theme]), [stores.uiStore.theme]);
+  useEffect(() => setTheme(uiStore.theme), [uiStore.theme]);
+  useEffect(() => { postsStore.fetch() }, [postsStore.posts]); // TODO ???
 
   return (
     <div className={styles.root}>
@@ -20,12 +20,14 @@ const App: React.FunctionComponent = observer(() => {
       </header>
       <main>
         <ThemeSelector
-          themes={THEMES}
-          onChange={stores.uiStore.switchTheme}
+          className={styles.themeSelector}
+          onChange={uiStore.switchTheme}
         />
-        <div className={styles.counter}>
-          <span>Counter: {counter.count}&nbsp;</span>
-          <button onClick={() => counter.count++}>+</button>
+        <div className={styles.container}>
+          <PostsList
+            className={styles.posts}
+            posts={Array.from(postsStore.posts.values())}
+          />
         </div>
       </main>
     </div>

@@ -1,7 +1,16 @@
-:root {
-  --color: 'orange';
+:root,
+:root[theme='light'] {
+  --color: orange;
   --background-color: #eee;
+  --background-color-second: #e6e6e6;
   --text-color: #333;
+}
+
+:root[theme='dark'] {
+  --color: red;
+  --background-color: #333;
+  --background-color-second: #444;
+  --text-color: #eee;
 }
 
 body {

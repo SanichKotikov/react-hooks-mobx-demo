@@ -2,9 +2,15 @@
   text-align: center;
 }
 
-.counter {
+.themeSelector {
+  margin: 20px 0;
+}
+
+.container {
   display: flex;
-  align-items: center;
   justify-content: center;
-  padding: 20px;
+}
+
+.posts {
+  width: 500px;
 }
