@@ -2,13 +2,14 @@ import React, { useContext, useEffect } from 'react';
 import { observer } from 'mobx-react-lite';
 import ThemeSelector from '../ThemeSelector';
 import PostsList from '../PostsList';
-import { StoresContext } from '../../contexts';
+import { UiStoreContext } from '../../stores/UiStore';
+import { PostsStoreContext } from '../../stores/PostsStore';
 import setTheme from '../../helpers/setTheme';
-import { IStores } from '../../stores/types';
 import styles from './App.module.css';
 
 const App: React.FunctionComponent = observer(() => {
-  const { uiStore, postsStore } = useContext(StoresContext) as IStores;
+  const uiStore = useContext(UiStoreContext);
+  const postsStore = useContext(PostsStoreContext);
 
   useEffect(() => setTheme(uiStore.theme), [uiStore.theme]);
   useEffect(() => { postsStore.fetch() }, [postsStore.posts]); // TODO ???
@@ -26,6 +27,7 @@ const App: React.FunctionComponent = observer(() => {
         <div className={styles.container}>
           <PostsList
             className={styles.posts}
+            fetching={postsStore.fetching}
             posts={Array.from(postsStore.posts.values())}
           />
         </div>

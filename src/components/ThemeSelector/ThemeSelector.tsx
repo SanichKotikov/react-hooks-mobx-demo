@@ -10,18 +10,20 @@ interface IProps {
   onChange: (theme: uiThemeName) => void;
 }
 
-const ThemeSelector: React.FunctionComponent<IProps> = ({ className, onChange }) => (
-  <div className={classNames(styles.root, className)}>
-    {THEMES.map((name: any) => (
-      <button
-        key={name}
-        className={styles.button}
-        onClick={() => onChange(uiThemeName[name] as uiThemeName)}
-      >
-        {name}
-      </button>
-    ))}
-  </div>
+const ThemeSelector: React.FunctionComponent<IProps> = React.memo(
+  ({ className, onChange }) => (
+    <div className={classNames(styles.root, className)}>
+      {THEMES.map((name: any) => (
+        <button
+          key={name}
+          className={styles.button}
+          onClick={() => onChange(uiThemeName[name] as uiThemeName)}
+        >
+          {name}
+        </button>
+      ))}
+    </div>
+  )
 );
 
 export default ThemeSelector;

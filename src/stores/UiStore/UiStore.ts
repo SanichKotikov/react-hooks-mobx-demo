@@ -1,5 +1,5 @@
 import { observable, action } from 'mobx';
-import { uiThemeName } from '../types';
+import { uiThemeName } from '../../types';
 
 class UiStore {
 
@@ -9,7 +9,7 @@ class UiStore {
     this.theme = uiThemeName.Light;
   }
 
-  @action switchTheme = (theme: uiThemeName) => {
+  @action switchTheme = (theme: uiThemeName): void => {
     this.theme = theme;
   };
 
