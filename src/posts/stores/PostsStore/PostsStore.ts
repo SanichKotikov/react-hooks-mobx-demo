@@ -1,16 +1,21 @@
-import server from '../../../server';
 import { observable, action, runInAction } from 'mobx';
-import { IPost } from '../../types';
+import { IPostServices } from './services';
 
 class PostsStore {
+
+  private services: IPostServices;
 
   @observable fetching = false;
   @observable posts = observable.map({});
 
+  constructor(services: IPostServices) {
+    this.services = services;
+  }
+
   @action async fetch(): Promise<void> {
     try {
       this.fetching = true;
-      const posts: IPost[] = await server.get('/posts');
+      const posts = await this.services.fetchPosts();
 
       runInAction(() => {
         posts.forEach(post => this.posts.set(post.id, post));
