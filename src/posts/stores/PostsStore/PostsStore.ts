@@ -1,4 +1,4 @@
-import server from '../../server';
+import server from '../../../server';
 import { observable, action, runInAction } from 'mobx';
 import { IPost } from '../../types';
 

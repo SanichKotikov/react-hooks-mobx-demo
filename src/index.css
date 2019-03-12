@@ -13,6 +13,12 @@
   --text-color: #eee;
 }
 
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
 body {
   margin: 0;
   padding: 0;
@@ -21,4 +27,5 @@ body {
   -moz-osx-font-smoothing: grayscale;
   color: var(--text-color);
   background: var(--background-color);
+  box-sizing: border-box;
 }

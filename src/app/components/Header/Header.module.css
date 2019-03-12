@@ -1,0 +1,25 @@
+.root {
+  padding: 10px 20px;
+  background: var(--background-color-second);
+  border-bottom: 1px solid rgba(0, 0, 0, .3);
+}
+
+.content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.title {
+  font-size: 1.6em;
+  line-height: 1;
+}
+
+.side {
+  display: flex;
+  align-items: center;
+}
+
+.user {
+  margin-right: 20px;
+}

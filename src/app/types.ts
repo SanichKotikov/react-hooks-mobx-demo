@@ -3,9 +3,7 @@ export enum uiThemeName {
   Dark = 'dark',
 }
 
-export interface IPost {
-  userId: number;
+export interface IUser {
   id: number;
-  title: string;
-  body: string;
+  name: string;
 }
