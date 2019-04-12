@@ -1,6 +1,7 @@
 'use strict';
 
 const fs = require('fs');
+const crypro = require('crypto');
 const path = require('path');
 const webpack = require('webpack');
 const resolve = require('resolve');
@@ -17,6 +18,8 @@ const InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin');
 const WorkboxWebpackPlugin = require('workbox-webpack-plugin');
 const WatchMissingNodeModulesPlugin = require('react-dev-utils/WatchMissingNodeModulesPlugin');
 const ModuleScopePlugin = require('react-dev-utils/ModuleScopePlugin');
+const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin');
+const CspHtmlWebpackPlugin = require('csp-html-webpack-plugin');
 const getCSSModuleLocalIdent = require('react-dev-utils/getCSSModuleLocalIdent');
 const paths = require('./paths');
 const getClientEnvironment = require('./env');
@@ -24,6 +27,8 @@ const ModuleNotFoundPlugin = require('react-dev-utils/ModuleNotFoundPlugin');
 const ForkTsCheckerWebpackPlugin = require('react-dev-utils/ForkTsCheckerWebpackPlugin');
 const typescriptFormatter = require('react-dev-utils/typescriptFormatter');
 
+
+const SHA256 = crypro.createHash('sha256').update('' + Date.now(), 'utf8').digest('base64');
 
 // Source maps are resource heavy and can cause out of memory issue for large source files.
 const shouldUseSourceMap = process.env.GENERATE_SOURCEMAP !== 'false';
@@ -547,6 +552,23 @@ module.exports = function(webpackEnv) {
       // https://github.com/jmblog/how-to-optimize-momentjs-with-webpack
       // You can remove this if you don't use Moment.js:
       new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
+      // CORS
+      new ScriptExtHtmlWebpackPlugin({
+        custom: [{
+          test: /\.js$/,
+          attribute: 'nonce',
+          value: 'nonce-' + SHA256,
+        }],
+      }),
+      new CspHtmlWebpackPlugin({
+        'base-uri': '\'self\'',
+        'object-src': '\'none\'',
+        'script-src': ['\'self\'', '\'nonce-' + SHA256 + '\''],
+        'style-src': ['\'self\'', isEnvDevelopment && '\'unsafe-inline\''].filter(Boolean),
+      }, {
+        enabled: true,
+        hashingMethod: 'sha256',
+      }),
       // Generate a service worker script that will precache, and keep up to date,
       // the HTML & assets that are part of the Webpack build.
       isEnvProduction &&
