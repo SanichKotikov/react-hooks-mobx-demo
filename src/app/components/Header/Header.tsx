@@ -4,8 +4,8 @@ import classNames from 'classnames';
 import Content from '../Content';
 import CurrentUser from '../CurrentUser';
 import ThemeSelector from '../ThemeSelector';
-import UserContext from '../../contexts/UserContext';
 import ThemeContext from '../../contexts/ThemeContext';
+import { useUser } from '../../stores/UserStore';
 import styles from './Header.module.css';
 
 interface Props {
@@ -13,7 +13,7 @@ interface Props {
 }
 
 const Header: React.FunctionComponent<Props> = observer(({ className }) => {
-  const user = useContext(UserContext);
+  const [user] = useUser();
   const [, onUpdateTheme] = useContext(ThemeContext);
 
   return (

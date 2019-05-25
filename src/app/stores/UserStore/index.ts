@@ -1,7 +1,11 @@
 import UserStore from './UserStore';
-import { createContext } from 'react';
+import StatusStore from '../StatusStore';
+import { IUser } from '../../types';
 
-const userStore = new UserStore();
-export const UserStoreContext = createContext(userStore);
+const store = new UserStore();
 
-export default userStore;
+export const useUser = (): [IUser | null, StatusStore<IUser>] => {
+  return [store.user.get(), store.status];
+};
+
+export default store;

@@ -1,7 +1,16 @@
 import PostsStore from './PostsStore';
-import { createContext } from 'react';
+import { useEffect } from 'react';
+import StatusStore from '../../../app/stores/StatusStore';
+import { IPost } from '../../types';
 
-const postsStore = new PostsStore();
-export const PostsStoreContext = createContext(postsStore);
+const store = new PostsStore();
 
-export default postsStore;
+export const usePosts = (fetch?: boolean): [IPost[], StatusStore<IPost[]>] => {
+  useEffect(() => {
+    if (fetch) store.fetch().catch();
+  }, []);
+
+  return [Array.from(store.posts.values()), store.status];
+};
+
+export default store;
