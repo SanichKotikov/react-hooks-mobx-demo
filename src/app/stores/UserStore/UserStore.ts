@@ -1,25 +1,18 @@
 import { observable, action, runInAction } from 'mobx';
-import { IUserServices } from './services';
-import { IUser } from '../../types';
+import fetcher from '../../helpers/fetcher';
+import services from './services';
+import { uiLoading, IUser } from '../../types';
 
 class UserStore {
 
-  private services: IUserServices;
-
+  @observable fetching: uiLoading = uiLoading.None;
   @observable user: IUser | null = null;
 
-  constructor(services: IUserServices) {
-    this.services = services;
-  }
-
-  @action async fetch() {
-    try {
-      const user = await this.services.fetchUser();
-      runInAction(() => this.user = user);
-    } catch (error) {
-      console.log(error);
-      runInAction(() => this.user = null);
-    }
+  @action fetch() {
+    return fetcher(this, 'fetching', services.fetchUser())
+      .then((user) => {
+        runInAction(() => this.user = user);
+      });
   }
 
 }

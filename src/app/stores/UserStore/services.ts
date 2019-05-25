@@ -1,10 +1,6 @@
 import client from '../../../client';
 import { IUser } from '../../types';
 
-const fetchUser = () => client.get('/users/2');
-
-export interface IUserServices {
-  fetchUser: () => Promise<IUser>;
-}
+const fetchUser = (): Promise<IUser> => client.get('/users/2');
 
 export default { fetchUser };

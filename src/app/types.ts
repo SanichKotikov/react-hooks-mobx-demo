@@ -3,6 +3,13 @@ export enum uiThemeName {
   Dark = 'dark',
 }
 
+export enum uiLoading {
+  None,
+  Fetch,
+  Done,
+  Error,
+}
+
 export interface IUser {
   id: number;
   name: string;

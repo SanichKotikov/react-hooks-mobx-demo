@@ -3,11 +3,12 @@ import { observer } from 'mobx-react-lite';
 import classNames from 'classnames';
 import Post from '../Post';
 import { IPost } from '../../types';
+import { uiLoading } from '../../../app/types';
 import styles from './PostsList.module.css';
 
 interface IProps {
   posts: IPost[];
-  fetching: boolean;
+  fetching: uiLoading;
   className?: string;
 }
 
@@ -21,7 +22,7 @@ const PostsList: React.FunctionComponent<IProps> = observer(
           className={styles.post}
         />
       ))}
-      {fetching && <div>Loading...</div>}
+      {fetching === uiLoading.Fetch && <div>Loading...</div>}
     </div>
   )
 );
