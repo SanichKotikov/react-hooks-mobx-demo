@@ -5,7 +5,7 @@ import Content from '../Content';
 import CurrentUser from '../CurrentUser';
 import ThemeSelector from '../ThemeSelector';
 import ThemeContext from '../../contexts/ThemeContext';
-import { useUser } from '../../stores/UserStore';
+import useUser from '../../hooks/useUser';
 import styles from './Header.module.css';
 
 interface Props {
@@ -13,7 +13,7 @@ interface Props {
 }
 
 const Header: React.FunctionComponent<Props> = observer(({ className }) => {
-  const [user] = useUser();
+  const { user } = useUser();
   const [, onUpdateTheme] = useContext(ThemeContext);
 
   return (

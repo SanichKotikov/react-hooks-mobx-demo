@@ -2,8 +2,8 @@ import React, { useState, useCallback } from 'react';
 import { observer } from 'mobx-react-lite';
 import Title from '../../../app/components/Title';
 import PostsList from '../../components/PostsList';
-import { useUser } from '../../../app/stores/UserStore';
-import { usePosts } from '../../stores/PostsStore';
+import useUser from '../../../app/hooks/useUser';
+import usePosts from '../../hooks/usePosts';
 import { IUser } from '../../../app/types';
 import { IPost } from '../../types';
 import styles from './Posts.module.css';
@@ -17,8 +17,8 @@ const filterPosts = (posts: IPost[], user: IUser | null, onlyMy: boolean): IPost
 const Posts: React.FunctionComponent = observer(() => {
   const [onlyMy, setOnlyMy] = useState(false);
 
-  const [user] = useUser();
-  const [posts, status] = usePosts(true);
+  const { user } = useUser();
+  const { posts, status } = usePosts(true);
 
   const onOnlyMyChange = useCallback((event) => setOnlyMy(event.target.checked), []);
 
@@ -35,7 +35,7 @@ const Posts: React.FunctionComponent = observer(() => {
       </div>
       <PostsList
         loading={status.loading}
-        posts={filterPosts(posts, user, onlyMy)}
+        posts={filterPosts([...posts.values()], user, onlyMy)}
       />
     </div>
   );

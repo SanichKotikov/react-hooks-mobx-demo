@@ -1,4 +1,4 @@
-import { observable, action, computed, runInAction } from 'mobx';
+import { observable, action, computed } from 'mobx';
 
 enum fsState {
   Idle,
@@ -29,21 +29,13 @@ class StatusStore<R, A extends any[] = []> {
     return this.state === fsState.Rejected;
   }
 
-  @action async fetch(...args: A): Promise<R> {
+  @action async fetch(...args: A): Promise<[R, () => void]> {
     try {
       this.state = fsState.Pending;
       const data = await this.service(...args);
-
-      runInAction(() => {
-        this.state = fsState.Fulfilled;
-      });
-
-      return Promise.resolve(data);
+      return [data, () => this.state = fsState.Fulfilled];
     } catch (error) {
-      runInAction(() => {
-        this.state = fsState.Rejected;
-      });
-
+      this.state = fsState.Rejected;
       return Promise.reject(error);
     }
   }

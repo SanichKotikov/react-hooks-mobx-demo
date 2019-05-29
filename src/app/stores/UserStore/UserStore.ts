@@ -1,4 +1,4 @@
-import { observable, IObservableValue, runInAction, onBecomeObserved } from 'mobx';
+import { action, observable, onBecomeObserved, runInAction } from 'mobx';
 import StatusStore from '../StatusStore';
 import services from './services';
 import { IUser } from '../../types';
@@ -6,21 +6,21 @@ import { IUser } from '../../types';
 class UserStore {
 
   status: StatusStore<IUser>;
-  @observable user: IObservableValue<IUser | null>;
+  @observable user: IUser | null;
 
   constructor() {
     this.status = new StatusStore(services.fetchUser);
-    this.user = observable.box(null);
-
+    this.user = null;
     onBecomeObserved(this, 'user', () => this.fetch());
   }
 
-  fetch() {
-    return this.status.fetch()
-      .then((user) => {
-        runInAction(() => this.user.set(user));
-      });
-  }
+  @action fetch = () => (
+    this.status.fetch()
+      .then(([user, callback]) => runInAction(() => {
+        this.user = user;
+        callback();
+      }))
+  );
 
 }
 

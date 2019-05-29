@@ -1,4 +1,4 @@
-import { observable, runInAction, ObservableMap } from 'mobx';
+import { action, observable, ObservableMap, runInAction } from 'mobx';
 import StatusStore from '../../../app/stores/StatusStore';
 import services from './services';
 import { IPost } from '../../types';
@@ -13,14 +13,13 @@ class PostsStore {
     this.posts = observable.map({});
   }
 
-  fetch() {
-    return this.status.fetch()
-      .then((posts) => {
-        runInAction(() => {
-          posts.forEach(post => this.posts.set(post.id, post));
-        });
-      });
-  }
+  @action fetch = () => (
+    this.status.fetch()
+      .then(([posts, callback]) => runInAction(() => {
+        posts.forEach(post => this.posts.set(post.id, post));
+        callback();
+      }))
+  );
 
 }
 
