@@ -1,19 +1,26 @@
-import { observable, action, runInAction } from 'mobx';
-import fetcher from '../../helpers/fetcher';
+import { action, observable, onBecomeObserved, runInAction } from 'mobx';
+import StatusStore from '../StatusStore';
 import services from './services';
-import { uiLoading, IUser } from '../../types';
+import { IUser } from '../../types';
 
 class UserStore {
 
-  @observable fetching: uiLoading = uiLoading.None;
-  @observable user: IUser | null = null;
+  status: StatusStore<IUser>;
+  @observable user: IUser | null;
 
-  @action fetch() {
-    return fetcher(this, 'fetching', services.fetchUser())
-      .then((user) => {
-        runInAction(() => this.user = user);
-      });
+  constructor() {
+    this.status = new StatusStore(services.fetchUser);
+    this.user = null;
+    onBecomeObserved(this, 'user', () => this.fetch());
   }
+
+  @action fetch = () => (
+    this.status.fetch()
+      .then(([user, callback]) => runInAction(() => {
+        this.user = user;
+        callback();
+      }))
+  );
 
 }
 

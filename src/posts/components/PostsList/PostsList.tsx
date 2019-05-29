@@ -3,17 +3,16 @@ import { observer } from 'mobx-react-lite';
 import classNames from 'classnames';
 import Post from '../Post';
 import { IPost } from '../../types';
-import { uiLoading } from '../../../app/types';
 import styles from './PostsList.module.css';
 
 interface IProps {
   posts: IPost[];
-  fetching: uiLoading;
+  loading: boolean;
   className?: string;
 }
 
 const PostsList: React.FunctionComponent<IProps> = observer(
-  ({ posts, fetching, className }) => (
+  ({ posts, loading, className }) => (
     <div className={classNames(styles.root, className)}>
       {posts.map(post => (
         <Post
@@ -22,7 +21,7 @@ const PostsList: React.FunctionComponent<IProps> = observer(
           className={styles.post}
         />
       ))}
-      {fetching === uiLoading.Fetch && <div>Loading...</div>}
+      {loading && <div>Loading...</div>}
     </div>
   )
 );

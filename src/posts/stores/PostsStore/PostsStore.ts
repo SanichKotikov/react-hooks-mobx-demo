@@ -1,19 +1,25 @@
-import { observable, action, runInAction } from 'mobx';
-import fetcher from '../../../app/helpers/fetcher';
+import { action, observable, ObservableMap, runInAction } from 'mobx';
+import StatusStore from '../../../app/stores/StatusStore';
 import services from './services';
-import { uiLoading } from '../../../app/types';
+import { IPost } from '../../types';
 
 class PostsStore {
 
-  @observable fetching: uiLoading = uiLoading.None;
-  @observable posts = observable.map({});
+  status: StatusStore<IPost[]>;
+  @observable posts: ObservableMap<number, IPost>;
 
-  @action fetch() {
-    return fetcher(this, 'fetching', services.fetchPosts())
-      .then((posts) => runInAction(() => (
-        posts.forEach(post => this.posts.set(post.id, post))
-      )));
+  constructor() {
+    this.status = new StatusStore(services.fetchPosts);
+    this.posts = observable.map({});
   }
+
+  @action fetch = () => (
+    this.status.fetch()
+      .then(([posts, callback]) => runInAction(() => {
+        posts.forEach(post => this.posts.set(post.id, post));
+        callback();
+      }))
+  );
 
 }
 
