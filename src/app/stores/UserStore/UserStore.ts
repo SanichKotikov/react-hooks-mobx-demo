@@ -20,6 +20,9 @@ class UserStore {
         this.user = user;
         callback();
       }))
+      .catch((error) => {
+        console.log(error);
+      })
   );
 
 }

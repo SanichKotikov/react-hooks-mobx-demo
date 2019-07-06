@@ -1,9 +1,13 @@
+import * as t from 'io-ts';
+
 export enum uiThemeName {
   Light = 'light',
   Dark = 'dark',
 }
 
-export interface IUser {
-  id: number;
-  name: string;
-}
+export const IUser = t.interface({
+  id: t.number,
+  name: t.string,
+});
+
+export type IUser = t.TypeOf<typeof IUser>;

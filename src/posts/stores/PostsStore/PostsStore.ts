@@ -19,6 +19,9 @@ class PostsStore {
         posts.forEach(post => this.posts.set(post.id, post));
         callback();
       }))
+      .catch((error) => {
+        console.log(error);
+      })
   );
 
 }
