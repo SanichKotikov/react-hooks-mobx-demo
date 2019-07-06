@@ -311,6 +311,11 @@ module.exports = function(webpackEnv) {
       ],
     },
     plugins: [
+      new webpack.HashedModuleIdsPlugin({
+        hashFunction: 'sha256',
+        hashDigest: 'hex',
+        hashDigestLength: 6,
+      }),
       new HtmlWebpackPlugin(
         Object.assign(
           {},
