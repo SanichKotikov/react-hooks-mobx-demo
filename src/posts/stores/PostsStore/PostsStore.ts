@@ -1,7 +1,7 @@
 import { action, observable, ObservableMap, runInAction } from 'mobx';
-import StatusStore from '../../../app/stores/StatusStore';
+import StatusStore from 'app/stores/StatusStore';
+import { IPost } from 'posts/types';
 import services from './services';
-import { IPost } from '../../types';
 
 class PostsStore {
 

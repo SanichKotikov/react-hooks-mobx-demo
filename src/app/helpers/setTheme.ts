@@ -1,5 +1,7 @@
-import { uiThemeName } from '../types';
+import { uiThemeName } from 'app/types';
 
-export default (theme: uiThemeName) => (
-  document.documentElement.setAttribute('theme', theme)
-);
+function setTheme(theme: uiThemeName) {
+  document.documentElement.setAttribute('theme', theme);
+}
+
+export default setTheme;

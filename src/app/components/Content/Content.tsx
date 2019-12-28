@@ -1,17 +1,19 @@
 import React from 'react';
 import classNames from 'classnames';
-import styles from './Content.module.css';
 
-interface Props {
+import css from './Content.css';
+
+interface IProps {
   className?: string;
+  children?: React.ReactNode;
 }
 
-const Content: React.FunctionComponent<Props> = React.memo(
-  ({ className, children }) => (
-    <div className={classNames(styles.root, className)}>
-      {children}
-    </div>
-  )
+export default React.memo<IProps>(
+  function Content({ className, children }) {
+    return (
+      <div className={classNames(css.root, className)}>
+        {children}
+      </div>
+    );
+  }
 );
-
-export default Content;

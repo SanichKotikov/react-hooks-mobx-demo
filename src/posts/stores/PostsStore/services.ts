@@ -1,7 +1,7 @@
 import * as t from 'io-ts';
 import * as tPromise from 'io-ts-promise';
-import client from '../../../client';
-import { IPost } from '../../types';
+import client from 'client';
+import { IPost } from 'posts/types';
 
 const fetchPosts = async () => {
   const data = await client.get<IPost[]>('/posts');

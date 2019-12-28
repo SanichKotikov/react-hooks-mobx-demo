@@ -1,10 +1,9 @@
 import React from 'react';
-import styles from './Title.module.css';
 
-const Title: React.FunctionComponent = React.memo(
-  ({ children }) => (
-    <h1 className={styles.root}>{children}</h1>
-  )
+import css from './Title.css';
+
+export default React.memo(
+  function Title({ children }) {
+    return <h1 className={css.root}>{children}</h1>;
+  }
 );
-
-export default Title;

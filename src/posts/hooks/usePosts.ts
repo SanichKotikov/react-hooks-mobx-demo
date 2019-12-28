@@ -1,4 +1,4 @@
-import store from '../stores/PostsStore';
+import store from 'posts/stores/PostsStore';
 import { useEffect } from 'react';
 
 export default (fetch?: boolean) => {

@@ -1,16 +1,16 @@
 import React from 'react';
 import { observer } from 'mobx-react-lite';
 import classNames from 'classnames';
-import { IUser } from '../../types';
+import { IUser } from 'app/types';
 
-interface Props {
+interface IProps {
   user: IUser | null;
   className?: string;
 }
 
-const CurrentUser: React.FunctionComponent<Props> = observer(({ user, className }) => {
-  if (!user) return null;
-  return <div className={classNames(className)}>{user.name}</div>;
-});
-
-export default CurrentUser;
+export default observer<IProps>(
+  function CurrentUser({ user, className }) {
+    if (!user) return null;
+    return <div className={classNames(className)}>{user.name}</div>;
+  }
+);

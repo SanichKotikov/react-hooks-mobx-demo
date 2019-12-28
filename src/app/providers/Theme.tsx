@@ -1,15 +1,15 @@
 import React, { useState, useCallback, useLayoutEffect } from 'react';
 import { observer } from 'mobx-react-lite';
-import ThemeContext from '../contexts/ThemeContext';
-import setTheme from '../helpers/setTheme';
-import { uiThemeName } from '../types';
+import ThemeContext from 'app/contexts/ThemeContext';
+import setTheme from 'app/helpers/setTheme';
+import { uiThemeName } from 'app/types';
 
 const DEFAULT_THEME =
   matchMedia('(prefers-color-scheme: dark)').matches
     ? uiThemeName.Dark
     : uiThemeName.Light;
 
-const Theme: React.FunctionComponent = observer(({ children }) => {
+export default observer(function Theme({ children }) {
   const [theme, updateTheme] = useState(DEFAULT_THEME);
 
   const onUpdateTheme = useCallback((theme: uiThemeName) => {
@@ -26,5 +26,3 @@ const Theme: React.FunctionComponent = observer(({ children }) => {
     </ThemeContext.Provider>
   );
 });
-
-export default Theme;

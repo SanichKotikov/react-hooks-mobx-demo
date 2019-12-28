@@ -1,20 +1,21 @@
 import React, { useState, useCallback } from 'react';
 import { observer } from 'mobx-react-lite';
-import Title from '../../../app/components/Title';
-import PostsList from '../../components/PostsList';
-import useUser from '../../../app/hooks/useUser';
-import usePosts from '../../hooks/usePosts';
-import { IUser } from '../../../app/types';
-import { IPost } from '../../types';
-import styles from './Posts.module.css';
+import Title from 'app/components/Title';
+import useUser from 'app/hooks/useUser';
+import { IUser } from 'app/types';
+import PostsList from 'posts/components/PostsList';
+import usePosts from 'posts/hooks/usePosts';
+import { IPost } from 'posts/types';
 
-const filterPosts = (posts: IPost[], user: IUser | null, onlyMy: boolean): IPost[] => {
+import css from './Posts.css';
+
+function filterPosts(posts: IPost[], user: IUser | null, onlyMy: boolean): IPost[] {
   return user && posts.length && onlyMy
     ? posts.filter(post => post.userId === user.id)
     : posts;
-};
+}
 
-const Posts: React.FunctionComponent = observer(() => {
+export default observer(function Posts() {
   const [onlyMy, setOnlyMy] = useState(false);
 
   const { user } = useUser();
@@ -24,7 +25,7 @@ const Posts: React.FunctionComponent = observer(() => {
 
   return (
     <div>
-      <div className={styles.header}>
+      <div className={css.header}>
         <Title>Posts</Title>
         {Boolean(user) && (
           <label>
@@ -40,5 +41,3 @@ const Posts: React.FunctionComponent = observer(() => {
     </div>
   );
 });
-
-export default Posts;

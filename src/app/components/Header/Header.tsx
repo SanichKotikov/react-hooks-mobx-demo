@@ -1,32 +1,33 @@
 import React, { useContext } from 'react';
 import { observer } from 'mobx-react-lite';
 import classNames from 'classnames';
+import ThemeContext from 'app/contexts/ThemeContext';
+import useUser from 'app/hooks/useUser';
 import Content from '../Content';
 import CurrentUser from '../CurrentUser';
 import ThemeSelector from '../ThemeSelector';
-import ThemeContext from '../../contexts/ThemeContext';
-import useUser from '../../hooks/useUser';
-import styles from './Header.module.css';
 
-interface Props {
+import css from './Header.css';
+
+interface IProps {
   className?: string;
 }
 
-const Header: React.FunctionComponent<Props> = observer(({ className }) => {
-  const { user } = useUser();
-  const [, onUpdateTheme] = useContext(ThemeContext);
+export default observer<IProps>(
+  function Header({ className }) {
+    const { user } = useUser();
+    const [, onUpdateTheme] = useContext(ThemeContext);
 
-  return (
-    <header className={classNames(styles.root, className)}>
-      <Content className={styles.content}>
-        <div className={styles.title}>Demo</div>
-        <div className={styles.side}>
-          <CurrentUser className={styles.user} user={user} />
-          <ThemeSelector onChange={onUpdateTheme} />
-        </div>
-      </Content>
-    </header>
-  );
-});
-
-export default Header;
+    return (
+      <header className={classNames(css.root, className)}>
+        <Content className={css.content}>
+          <div className={css.title}>Demo</div>
+          <div className={css.side}>
+            <CurrentUser className={css.user} user={user} />
+            <ThemeSelector onChange={onUpdateTheme} />
+          </div>
+        </Content>
+      </header>
+    );
+  }
+);

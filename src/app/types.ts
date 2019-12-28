@@ -5,9 +5,11 @@ export enum uiThemeName {
   Dark = 'dark',
 }
 
-export const IUser = t.interface({
-  id: t.number,
-  name: t.string,
-});
+export const IUser = t.readonly(
+  t.interface({
+    id: t.number,
+    name: t.string,
+  })
+);
 
 export type IUser = t.TypeOf<typeof IUser>;

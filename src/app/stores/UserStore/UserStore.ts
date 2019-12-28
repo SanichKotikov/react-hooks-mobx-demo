@@ -1,7 +1,7 @@
 import { action, observable, onBecomeObserved, runInAction } from 'mobx';
+import { IUser } from 'app/types';
 import StatusStore from '../StatusStore';
 import services from './services';
-import { IUser } from '../../types';
 
 class UserStore {
 
