@@ -1,18 +1,13 @@
 import './index.css';
 
-import React, { Suspense } from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom';
 import Theme from 'app/providers/Theme';
-import Layout from 'app/components/Layout';
-import Posts from 'posts/routes/Posts';
+import App from 'app/containers/App';
 
 ReactDOM.render(
   <Theme>
-    <Layout>
-      <Suspense fallback={null}>
-        <Posts />
-      </Suspense>
-    </Layout>
+    <App />
   </Theme>,
   document.getElementById('root'),
 );

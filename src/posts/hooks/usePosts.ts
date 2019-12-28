@@ -1,10 +1,26 @@
+import { useEffect, useCallback } from 'react';
+import useLoadingState from 'app/hooks/useLoadingState';
 import store from 'posts/stores/PostsStore';
-import { useEffect } from 'react';
 
-export default (fetch?: boolean) => {
+function usePosts() {
+  const { setState, ...state } = useLoadingState();
+
   useEffect(() => {
-    if (fetch) store.fetch().catch();
-  }, []);
+    setState.load();
+    store.fetch()
+      .then(setState.done)
+      .catch(setState.error);
+  }, [setState]);
 
-  return store;
-};
+  const reload = useCallback(() => {
+    return store.fetch().then(setState.done);
+  }, [setState]);
+
+  return {
+    ...state,
+    reload,
+    posts: Array.from(store.posts.values()),
+  };
+}
+
+export default usePosts;

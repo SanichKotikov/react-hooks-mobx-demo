@@ -8,12 +8,11 @@ import css from './PostsList.css';
 
 interface IProps {
   posts: IPost[];
-  loading: boolean;
   className?: string;
 }
 
 export default observer<IProps>(
-  function PostsList({ posts, loading, className }) {
+  function PostsList({ posts, className }) {
     return (
       <div className={classNames(css.root, className)}>
         {posts.map(post => (
@@ -23,7 +22,6 @@ export default observer<IProps>(
             className={css.post}
           />
         ))}
-        {loading && <div>Loading...</div>}
       </div>
     );
   }
