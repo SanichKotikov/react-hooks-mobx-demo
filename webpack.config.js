@@ -4,6 +4,7 @@ const webpack = require('webpack');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const SriPlugin = require('webpack-subresource-integrity');
+const CspHtmlWebpackPlugin = require('csp-html-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
@@ -120,6 +121,22 @@ module.exports = {
     new SriPlugin({
       hashFuncNames: ['sha256'],
       enabled: IS_PROD,
+    }),
+    new CspHtmlWebpackPlugin({
+      'base-uri': '\'self\'',
+      'object-src': '\'none\'',
+      'script-src': ['\'self\''],
+      'style-src': ['\'self\'', !IS_PROD && '\'unsafe-inline\''].filter(Boolean),
+    }, {
+      enabled: true,
+      hashEnabled: {
+        'script-src': false,
+        'style-src': false
+      },
+      nonceEnabled: {
+        'script-src': false,
+        'style-src': false
+      }
     }),
   ].filter(Boolean),
   performance: false,
