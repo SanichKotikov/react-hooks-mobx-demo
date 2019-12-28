@@ -8,9 +8,11 @@ const CspHtmlWebpackPlugin = require('csp-html-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 
 const MODE = process.env.NODE_ENV;
 const IS_PROD = MODE === 'production';
+const IS_ANALYZER = process.env.ANALYZER;
 
 const PUBLIC_PATH = path.resolve(__dirname, 'public');
 const OUTPUT_PATH = path.resolve(__dirname, 'build');
@@ -138,6 +140,7 @@ module.exports = {
         'style-src': false
       }
     }),
+    IS_ANALYZER && new BundleAnalyzerPlugin(),
   ].filter(Boolean),
   performance: false,
   stats: {
