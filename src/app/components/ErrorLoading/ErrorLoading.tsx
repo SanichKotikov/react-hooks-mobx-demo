@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from 'react';
 
 interface IProps {
-  onReload?: () => Promise<void>;
+  onReload: () => Promise<void>;
   className?: string;
 }
 
@@ -10,7 +10,6 @@ export default React.memo<IProps>(
     const [loading, update] = useState(false);
 
     const handle = useCallback(() => {
-      if (!onReload) return;
       update(true);
       onReload().catch(() => update(false));
     }, [onReload]);
@@ -18,14 +17,10 @@ export default React.memo<IProps>(
     return (
       <div className={className}>
         <span>Something went wrong</span>
-        {onReload && (
-          <>
-            &nbsp;
-            <button disabled={loading} onClick={handle}>
-              reload
-            </button>
-          </>
-        )}
+        &nbsp;
+        <button disabled={loading} onClick={handle}>
+          reload
+        </button>
       </div>
     );
   }

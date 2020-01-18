@@ -41,7 +41,7 @@ export default observer(function Posts() {
         fetchFunc={store.fetch}
         isEmpty={store.empty}
         loading={<div>Loading posts...</div>}
-        failure={<ErrorLoading className={css.error} />}
+        failure={reload => <ErrorLoading className={css.error} onReload={reload} />}
         empty={<div>No data</div>}
       >
         <PostsList
