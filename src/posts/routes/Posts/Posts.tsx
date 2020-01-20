@@ -1,6 +1,6 @@
 import React, { useState, useContext, useCallback } from 'react';
 import { observer } from 'mobx-react-lite';
-import DataWrapper from 'react-data-wrapper';
+import DataWrapper, { DataState } from 'react-data-wrapper';
 import Title from 'app/components/Title';
 import ErrorLoading from 'app/components/ErrorLoading';
 import UserContext from 'app/contexts/UserContext';
@@ -38,6 +38,7 @@ export default observer(function Posts() {
         )}
       </div>
       <DataWrapper
+        initState={DataState.Loading}
         fetchFunc={store.fetch}
         isEmpty={store.empty}
         loading={<div>Loading posts...</div>}
