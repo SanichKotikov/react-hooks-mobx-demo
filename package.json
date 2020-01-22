@@ -9,7 +9,7 @@
     "mobx": "5.15.1",
     "mobx-react-lite": "1.5.2",
     "react": "16.12.0",
-    "react-data-wrapper": "1.3.0",
+    "react-data-wrapper": "1.4.0",
     "react-dom": "16.12.0"
   },
   "devDependencies": {
