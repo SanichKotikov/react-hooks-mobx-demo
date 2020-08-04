@@ -46,13 +46,9 @@
   },
   "homepage": "https://sanichkotikov.github.io/react-hooks-mobx-demo/",
   "browserslist": [
-    "Chrome >= 62",
-    "ChromeAndroid >= 69",
-    "Android >= 5",
-    "Edge >= 17",
-    "Firefox >= 61",
-    "iOS >= 11",
-    "Safari >= 11",
-    "Opera >= 55"
+    "Chrome 74",
+    "Firefox 63",
+    "Safari 12",
+    "Edge 18"
   ]
 }
