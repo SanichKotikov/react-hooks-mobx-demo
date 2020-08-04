@@ -6,7 +6,7 @@
     "fp-ts": "2.7.1",
     "io-ts": "2.2.9",
     "io-ts-promise": "2.0.2",
-    "mobx": "5.15.4",
+    "mobx": "6.0.0-rc.1",
     "mobx-react-lite": "2.0.7",
     "react": "16.13.1",
     "react-data-wrapper": "1.4.1",
@@ -46,13 +46,9 @@
   },
   "homepage": "https://sanichkotikov.github.io/react-hooks-mobx-demo/",
   "browserslist": [
-    "Chrome >= 62",
-    "ChromeAndroid >= 69",
-    "Android >= 5",
-    "Edge >= 17",
-    "Firefox >= 61",
-    "iOS >= 11",
-    "Safari >= 11",
-    "Opera >= 55"
+    "Chrome 74",
+    "Firefox 63",
+    "Safari 12",
+    "Edge 18"
   ]
 }

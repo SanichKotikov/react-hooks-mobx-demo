@@ -1,19 +1,19 @@
-import { action, observable, computed, ObservableMap, runInAction } from 'mobx';
+import { observable, ObservableMap, makeAutoObservable, runInAction } from 'mobx';
 import { IPost } from 'posts/types';
 import services from './services';
 
 class PostsStore {
-  @observable posts: ObservableMap<number, IPost>;
+  posts: ObservableMap<number, IPost> = observable.map({});
 
   constructor() {
-    this.posts = observable.map({});
+    makeAutoObservable(this);
   }
 
-  @computed get empty() {
+  get empty() {
     return !this.posts.size;
   }
 
-  @action fetch = async () => {
+  fetch = async () => {
     const posts = await services.fetchPosts();
     runInAction(() => {
       posts.forEach(post => this.posts.set(post.id, post));

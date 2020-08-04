@@ -1,15 +1,15 @@
-import { action, observable, runInAction } from 'mobx';
+import { makeAutoObservable, runInAction } from 'mobx';
 import { IUser } from 'app/types';
 import services from './services';
 
 class UserStore {
-  @observable user: IUser | null;
+  user: IUser | null = null;
 
   constructor() {
-    this.user = null;
+    makeAutoObservable(this);
   }
 
-  @action fetch = async () => {
+  fetch = async () => {
     const user = await services.fetchUser();
     runInAction(() => {
       this.user = user;
